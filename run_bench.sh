@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh -p 2222 cpctest@localhost fio $@
+ssh -p 2222 -i cpc-test.rsa cpctest@localhost $@
