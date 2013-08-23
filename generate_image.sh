@@ -11,6 +11,9 @@ ssh-keygen
 
 # install necessary packages
 vi /etc/apt/sources.list
+# need to add lines:
+# deb http://ftp.uk.debian.org/debian/ wheezy main contrib non-free
+# deb-src http://ftp.uk.debian.org/debian/ wheezy main contrib non-free
 apt-get install sudo less fio dropbear
 apt-get install --no-install-recommends openssh-client
 
