@@ -8,7 +8,7 @@ CONFIGOPTS="--disable-werror --target-list=x86_64-softmmu"
 CILOPTS="--save-temps --noMakeStaticGlobal --useLogicalOperators \
   --useCaseRange"
 GCCOPTS="-U__SSE2__ -Wno-unused-variable -Wno-redundant-decls \
-  -Wno-deprecated-declarations"
+  -Wno-deprecated-declarations -Dcoroutine_fn='__attribute__((cps))' -w"
 COROOPTS="--load=$ROOTDIR/corocheck/_build/corocheck.cma \
   --doCoroCheck --coopAttr=cps --blockAttr=nocps"
 
@@ -63,7 +63,8 @@ mkdir -p bin/cpc-cpc
 
 # Build gcc-ucontext QEMU
 
-git checkout master
+# We want to use the same code for all four binaries
+git checkout convert-block-part2
 git pull
 
 cd bin/gcc-ucontext
@@ -76,9 +77,6 @@ cd ../..
 
 # Build cil-ucontext QEMU (with CoroCheck)
 
-git checkout master
-git pull
-
 cd bin/cil-ucontext
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
@@ -90,9 +88,6 @@ cd ../..
 
 # Build  cpc-ucontext QEMU
 
-git checkout master
-git pull
-
 cd bin/cpc-ucontext
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
@@ -102,16 +97,7 @@ make -j8
 
 cd ../..
 
-# CPC QEMU does not work yet
-
-echo Everything built successfully!
-echo Skipping cpc-qemu.
-exit 0
-
 # Build CPC QEMU
-
-git checkout cpc
-git pull
 
 cd bin/cpc-cpc
 ../../configure $CONFIGOPTS \

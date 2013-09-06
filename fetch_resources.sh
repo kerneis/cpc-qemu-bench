@@ -3,7 +3,7 @@
 wget http://www.ctshepherd.com/testbedhdd.img.bz2
 bunzip2 testbedhdd.img.bz2
 
-git clone git://git.qemu-project.org/qemu.git
+git clone git://github.com/cs648/qemu.git
 git clone git://github.com/kerneis/cil
 git clone git://github.com/kerneis/cpc
 git clone git://github.com/kerneis/corocheck
