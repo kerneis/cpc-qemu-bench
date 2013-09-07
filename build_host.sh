@@ -7,8 +7,9 @@ ROOTDIR="$(pwd)"
 CONFIGOPTS="--disable-werror --target-list=x86_64-softmmu"
 CILOPTS="--save-temps --noMakeStaticGlobal --useLogicalOperators \
   --useCaseRange"
-GCCOPTS="-U__SSE2__ -Wno-unused-variable -Wno-redundant-decls \
-  -Wno-deprecated-declarations -Dcoroutine_fn='__attribute__((cps))' -w"
+# XXX -Dcoroutine_fn is useless right now, but we plan to add #ifndef
+# XXX in fact no, it's necessary for cpc
+GCCOPTS="-U__SSE2__ -w -Dcoroutine_fn='__attribute__((cps))'"
 COROOPTS="--load=$ROOTDIR/corocheck/_build/corocheck.cma \
   --doCoroCheck --coopAttr=cps --blockAttr=nocps"
 
@@ -23,7 +24,7 @@ fi
 git checkout develop
 git pull
 ./configure
-make
+make OCAMLBUILD="ocamlbuild -j 12"
 
 cd ..
 
@@ -64,14 +65,14 @@ mkdir -p bin/cpc-cpc
 # Build gcc-ucontext QEMU
 
 # We want to use the same code for all four binaries
-git checkout convert-block-part2
+git checkout cpc-fixes
 git pull
 
 cd bin/gcc-ucontext
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --extra-cflags="$GCCOPTS"
-make -j8
+make -j12 2>&1 | tee make.log
 
 cd ../..
 
@@ -82,7 +83,7 @@ cd bin/cil-ucontext
     --with-coroutine=ucontext    \
     --cc="$CILBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS $COROOPTS" 
-make -j8
+make -j12 2>&1 | tee make.log
 
 cd ../..
 
@@ -93,7 +94,7 @@ cd bin/cpc-ucontext
     --with-coroutine=ucontext    \
     --cc="$CPCBIN" \
     --extra-cflags="--dontcpc $GCCOPTS $CILOPTS"
-make -j8
+make -j12 2>&1 | tee make.log
 
 cd ../..
 
@@ -104,6 +105,8 @@ cd bin/cpc-cpc
     --with-coroutine=cpc    \
     --cc="$CPCBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS"
-make -j8
+make -j12 2>&1 | tee make.log
 
 cd ../..
+
+echo Everything built successfully.

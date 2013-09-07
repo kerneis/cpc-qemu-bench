@@ -1,1 +1,5 @@
-testbedhdd.img
+testbedhdd.img*
+qemu/
+corocheck/
+cpc/
+cil/
