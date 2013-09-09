@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 backend=$1
 
@@ -8,7 +8,10 @@ then
   exit 1
 fi
 
-./run_fio.sh seq-readers  read $backend
-./run_fio.sh seq-writers  write $backend
-./run_fio.sh rand-readers randread $backend
-./run_fio.sh rand-writers randwrite $backend
+# TODO: add randread randwrite
+for rw in read write; do
+  for job in 1 2 3 4 5 6 7 8 9 10; do
+    echo TESTING: rw=$rw numjobs=$job backend=$backend
+    ./run_fio.sh  ${rw} ${job} ${backend}
+  done
+done
