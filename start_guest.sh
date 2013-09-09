@@ -1,6 +1,16 @@
 #!/bin/bash
 
-QEMU_BIN=qemu/bin/$1/x86_64-softmmu/qemu-system-x86_64
+backend=$1
+
+if [[ -z "$backend" ]]
+then
+  echo Usage: $0 backend
+  echo Available backends:
+  ls qemu/bin
+  exit 1
+fi
+
+QEMU_BIN=qemu/bin/${backend}/x86_64-softmmu/qemu-system-x86_64
 IMAGE=testbedhdd.img
 
 
