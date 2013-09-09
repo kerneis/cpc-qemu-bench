@@ -1,0 +1,67 @@
+Linux rhodium 3.10.9.wheezymptcp #14 SMP Thu Aug 29 23:29:00 UTC 2013 x86_64 GNU/Linux
+testbedhdd.img: QEMU QCOW Image (v2), 5368709120 bytes
+fio --name=seq-readers --rw=read --bs=8k --size=900m --direct=1 --numjobs=1
+Host:
+seq-readers: (g=0): rw=read, bs=8K-8K/8K-8K/8K-8K, ioengine=sync, iodepth=1
+fio-2.1.1
+Starting 1 process
+
+seq-readers: (groupid=0, jobs=1): err= 0: pid=16606: Mon Sep  9 14:30:25 2013
+  read : io=921600KB, bw=75529KB/s, iops=9441, runt= 12202msec
+    clat (usec): min=48, max=67028, avg=104.81, stdev=617.41
+     lat (usec): min=48, max=67028, avg=104.92, stdev=617.41
+    clat percentiles (usec):
+     |  1.00th=[   50],  5.00th=[   53], 10.00th=[   57], 20.00th=[   59],
+     | 30.00th=[   59], 40.00th=[   60], 50.00th=[   61], 60.00th=[   62],
+     | 70.00th=[   64], 80.00th=[   66], 90.00th=[   70], 95.00th=[   76],
+     | 99.00th=[  394], 99.50th=[ 2288], 99.90th=[ 9408], 99.95th=[10048],
+     | 99.99th=[19840]
+    bw (KB  /s): min=13008, max=112064, per=99.27%, avg=74977.25, stdev=22304.82
+    lat (usec) : 50=0.56%, 100=96.09%, 250=1.99%, 500=0.55%, 750=0.20%
+    lat (usec) : 1000=0.04%
+    lat (msec) : 2=0.05%, 4=0.12%, 10=0.35%, 20=0.05%, 50=0.01%
+  cpu          : usr=1.48%, sys=8.03%, ctx=115204, majf=0, minf=30
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=115200/w=0/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+   READ: io=921600KB, aggrb=75528KB/s, minb=75528KB/s, maxb=75528KB/s, mint=12202msec, maxt=12202msec
+
+Disk stats (read/write):
+    md0: ios=114994/49, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=57843/30, aggrmerge=0/25, aggrticks=5368/516, aggrin_queue=5864, aggrutil=71.10%
+  sda: ios=115199/30, merge=0/25, ticks=8764/788, in_queue=9512, util=71.10%
+  sdb: ios=488/30, merge=0/25, ticks=1972/244, in_queue=2216, util=17.32%
+Guest:
+seq-readers: (g=0): rw=read, bs=8K-8K/8K-8K, ioengine=sync, iodepth=1
+2.0.8
+Starting 1 process
+
+CIL
+
+seq-readers: (groupid=0, jobs=1): err= 0: pid=2072
+  read : io=921600KB, bw=35155KB/s, iops=4394 , runt= 26215msec
+    clat (usec): min=48 , max=3135 , avg=209.92, stdev=77.68
+     lat (usec): min=50 , max=3137 , avg=212.32, stdev=77.98
+    clat percentiles (usec):
+     |  1.00th=[   49],  5.00th=[   49], 10.00th=[   50], 20.00th=[  205],
+     | 30.00th=[  207], 40.00th=[  207], 50.00th=[  213], 60.00th=[  231],
+     | 70.00th=[  243], 80.00th=[  253], 90.00th=[  266], 95.00th=[  310],
+     | 99.00th=[  378], 99.50th=[  406], 99.90th=[  540], 99.95th=[  868],
+     | 99.99th=[ 1032]
+    bw (KB/s)  : min=28240, max=119504, per=98.12%, avg=34495.38, stdev=15700.37
+    lat (usec) : 50=9.92%, 100=4.32%, 250=62.14%, 500=23.50%, 750=0.03%
+    lat (usec) : 1000=0.07%
+    lat (msec) : 2=0.01%, 4=0.01%
+  cpu          : usr=8.73%, sys=77.93%, ctx=36693, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=115200/w=0/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+   READ: io=921600KB, aggrb=35155KB/s, minb=35155KB/s, maxb=35155KB/s, mint=26215msec, maxt=26215msec
+
+Disk stats (read/write):
+  sda: ios=98502/3, merge=0/2, ticks=15572/80, in_queue=15232, util=57.80%

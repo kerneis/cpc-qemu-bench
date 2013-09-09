@@ -1,0 +1,14 @@
+Linux rhodium 3.10.9.wheezymptcp #14 SMP Thu Aug 29 23:29:00 UTC 2013 x86_64 GNU/Linux
+testbedhdd.img: QEMU QCOW Image (v2), 5368709120 bytes
+fio --name=rand-writers --rw=randwrite --bs=8k --size=900m --direct=1 --numjobs=1
+Host:
+rand-writers: (g=0): rw=randwrite, bs=8K-8K/8K-8K/8K-8K, ioengine=sync, iodepth=1
+fio-2.1.1
+Starting 1 process
+rand-writers: Laying out IO file(s) (1 file(s) / 900MB)
+
+fio: terminating on signal 2
+
+
+Run status group 0 (all jobs):
+Guest:

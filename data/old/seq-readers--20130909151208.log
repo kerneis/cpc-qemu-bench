@@ -1,0 +1,6 @@
+Linux rhodium 3.10.9.wheezymptcp #14 SMP Thu Aug 29 23:29:00 UTC 2013 x86_64 GNU/Linux
+testbedhdd.img: QEMU QCOW Image (v2), 5368709120 bytes
+Guest backend:
+fio --name=seq-readers --rw=read --bs=32k --runtime=30 --time-based --size=100m --numjobs=10
+Host:
+Guest:
