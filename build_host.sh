@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
 # Use DONTCLEAN=1 ./build_host.sh to avoid rebuilding everything
+# Use nopool=-nopool ./build_host.sh to build with a -nopool suffix
+# (XXX it does NOT fix the pool size for you)
 
 ROOTDIR="$(pwd)"
 
@@ -57,10 +59,10 @@ cd qemu
 if [ -z "$DONTCLEAN" ]; then
   git clean -fdx
 fi
-mkdir -p bin/gcc-ucontext
-mkdir -p bin/cil-ucontext
-mkdir -p bin/cpc-ucontext
-mkdir -p bin/cpc-cpc
+mkdir -p bin/gcc-ucontext${nopool}
+mkdir -p bin/cil-ucontext${nopool}
+mkdir -p bin/cpc-ucontext${nopool}
+mkdir -p bin/cpc-cpc${nopool}
 
 # Build gcc-ucontext QEMU
 
@@ -68,7 +70,7 @@ mkdir -p bin/cpc-cpc
 git checkout cpc-fixes
 git pull
 
-cd bin/gcc-ucontext
+cd bin/gcc-ucontext${nopool}
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --extra-cflags="$GCCOPTS"
@@ -78,7 +80,7 @@ cd ../..
 
 # Build cil-ucontext QEMU (with CoroCheck)
 
-cd bin/cil-ucontext
+cd bin/cil-ucontext${nopool}
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --cc="$CILBIN" \
@@ -89,7 +91,7 @@ cd ../..
 
 # Build  cpc-ucontext QEMU
 
-cd bin/cpc-ucontext
+cd bin/cpc-ucontext${nopool}
 ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --cc="$CPCBIN" \
@@ -100,7 +102,7 @@ cd ../..
 
 # Build CPC QEMU
 
-cd bin/cpc-cpc
+cd bin/cpc-cpc${nopool}
 ../../configure $CONFIGOPTS \
     --with-coroutine=cpc    \
     --cc="$CPCBIN" \
