@@ -1,8 +1,8 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 backend=$1
 
-if [[ -z "$backend" ]]
+if [ -z "$backend" ]
 then
   echo Usage: $0 backend-name
   exit 1

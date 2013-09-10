@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 rw=$1
 jobs=$2
