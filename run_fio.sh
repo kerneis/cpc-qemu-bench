@@ -28,7 +28,8 @@ echo backend: $backend >> $log
 echo $cmd >> $log
 echo "(adding --direct=1 for guest)" >> $log
 echo "Host:" >> $log
-$cmd >> $log
+#$cmd >> $log
+echo skipping >> $log
 echo "Guest:" >> $log
 ./run_guest.sh $cmd --direct=1 >> $log
 
