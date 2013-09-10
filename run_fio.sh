@@ -21,6 +21,9 @@ echo LOGFILE IS: $log
 echo ==========================================
 
 uname -a | tee -a $log
+echo -n looking for kvm:|tee -a $log
+lsmod|grep kvm|tee -a $log
+echo . |tee -a $log
 file testbedhdd.img | tee -a $log
 echo backend: $backend | tee -a $log
 echo $cmd | tee -a $log
