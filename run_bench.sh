@@ -8,9 +8,8 @@ then
   exit 1
 fi
 
-# TODO: add randread randwrite
-for rw in read write; do
-  for job in 1 2 3 4 5 6 7 8 9 10; do
+for rw in read write randread randwrite; do
+  for job in 1 2 5 10 25 50; do
     echo TESTING: rw=$rw numjobs=$job backend=$backend
     ./run_fio.sh  ${rw} ${job} ${backend}
   done

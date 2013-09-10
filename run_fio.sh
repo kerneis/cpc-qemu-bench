@@ -6,7 +6,7 @@ backend=$3
 
 name=bench-$rw
 
-cmd="fio --minimal --name=$name --rw=$rw --bs=32k --runtime=30 --ramp_time=15 --time_based --size=100m --numjobs=$jobs"
+cmd="fio --minimal --name=$name --rw=$rw --bs=1k --runtime=30 --ramp_time=15 --time_based --size=50m --numjobs=$jobs"
 logdir=$(date +data/%Y/%m/%d)
 log=${logdir}/${name}-${backend}-${jobs}-$(date +%H%M%S).log
 
