@@ -1,8 +1,6 @@
 #!/bin/sh -e
 
 # Use DONTCLEAN=1 ./build_host.sh to avoid rebuilding everything
-# Use nopool=-nopool ./build_host.sh to build with a -nopool suffix
-# (XXX it does NOT fix the pool size for you)
 
 ROOTDIR="$(pwd)"
 
@@ -59,56 +57,64 @@ cd qemu
 if [ -z "$DONTCLEAN" ]; then
   git clean -fdx
 fi
-mkdir -p bin/gcc-ucontext${nopool}
-mkdir -p bin/cil-ucontext${nopool}
-mkdir -p bin/cpc-ucontext${nopool}
-mkdir -p bin/cpc-cpc${nopool}
-
-# Build gcc-ucontext QEMU
-
 # We want to use the same code for all four binaries
 git checkout cpc-fixes
 git pull
 
-cd bin/gcc-ucontext${nopool}
-../../configure $CONFIGOPTS \
+for nopool in "" "-nopool"; do
+
+  if [ "$nopool" = "-nopool" ]; then
+    GCCOPTS=$GCCOPTS -DNO_COROUTINE_POOL
+  fi
+
+  mkdir -p bin/gcc-ucontext${nopool}
+  mkdir -p bin/cil-ucontext${nopool}
+  mkdir -p bin/cpc-ucontext${nopool}
+  mkdir -p bin/cpc-cpc${nopool}
+
+  # Build gcc-ucontext QEMU
+
+  cd bin/gcc-ucontext${nopool}
+  ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --extra-cflags="$GCCOPTS"
-make -j12 2>&1 | tee make.log
+  make -j8 > make.log 2>&1 
 
-cd ../..
+  cd ../..
 
-# Build cil-ucontext QEMU (with CoroCheck)
+  # Build cil-ucontext QEMU (with CoroCheck)
 
-cd bin/cil-ucontext${nopool}
-../../configure $CONFIGOPTS \
+  cd bin/cil-ucontext${nopool}
+  ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --cc="$CILBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS $COROOPTS" 
-make -j12 2>&1 | tee make.log
+  make -j8 > make.log 2>&1 
 
-cd ../..
+  cd ../..
 
-# Build  cpc-ucontext QEMU
+  # Build  cpc-ucontext QEMU
 
-cd bin/cpc-ucontext${nopool}
-../../configure $CONFIGOPTS \
+  cd bin/cpc-ucontext${nopool}
+  ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --cc="$CPCBIN" \
     --extra-cflags="--dontcpc $GCCOPTS $CILOPTS"
-make -j12 2>&1 | tee make.log
+  make -j8 > make.log 2>&1 
 
-cd ../..
+  cd ../..
 
-# Build CPC QEMU
+  # Build CPC QEMU
 
-cd bin/cpc-cpc${nopool}
-../../configure $CONFIGOPTS \
+  cd bin/cpc-cpc${nopool}
+  ../../configure $CONFIGOPTS \
     --with-coroutine=cpc    \
     --cc="$CPCBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS"
-make -j12 2>&1 | tee make.log
+  make -j8 > make.log 2>&1 
 
-cd ../..
+  cd ../..
+
+done
 
 echo Everything built successfully.
