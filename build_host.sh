@@ -98,14 +98,19 @@ for nopool in "" "-nopool"; do
 
   # Build gcc-gthread QEMU
 
-  cd bin/gcc-gthread${nopool}
-  ../../configure $CONFIGOPTS \
-    --with-coroutine=gthread    \
-    --extra-cflags="$GCCOPTS"
-  make -j8 > make.log 2>&1
-  # XXX make check > make.check 2>&1
+  # gthread does not work with a pool
+  if [ "$nopool" = "-nopool" ]; then
 
-  cd ../..
+    cd bin/gcc-gthread${nopool}
+    ../../configure $CONFIGOPTS \
+      --with-coroutine=gthread    \
+      --extra-cflags="$GCCOPTS"
+    make -j8 > make.log 2>&1
+    make check > make.check 2>&1
+
+    cd ../..
+
+  fi
 
   # Build cil-ucontext QEMU (with CoroCheck)
 
