@@ -6,6 +6,8 @@ logfile=data/microbench.csv
 
 rm -f $logfile
 
+echo backend,time >> $logfile
+
 for dir in $(ls qemu/bin | grep -v gthread | grep -v cil-ucontext); do
   echo ========== $dir ===========
   make -C "qemu/bin/${dir}" tests/test-coroutine
