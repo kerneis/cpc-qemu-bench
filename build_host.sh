@@ -68,6 +68,8 @@ for nopool in "" "-nopool"; do
   fi
 
   mkdir -p bin/gcc-ucontext${nopool}
+  mkdir -p bin/gcc-sigaltstack${nopool}
+  mkdir -p bin/gcc-gthread${nopool}
   mkdir -p bin/cil-ucontext${nopool}
   mkdir -p bin/cpc-ucontext${nopool}
   mkdir -p bin/cpc-cpc${nopool}
@@ -78,7 +80,30 @@ for nopool in "" "-nopool"; do
   ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --extra-cflags="$GCCOPTS"
-  make -j8 > make.log 2>&1 
+  make -j8 > make.log 2>&1
+  make check > make.check 2>&1
+
+  cd ../..
+
+  # Build gcc-sigaltstack QEMU
+
+  cd bin/gcc-sigaltstack${nopool}
+  ../../configure $CONFIGOPTS \
+    --with-coroutine=sigaltstack    \
+    --extra-cflags="$GCCOPTS"
+  make -j8 > make.log 2>&1
+  make check > make.check 2>&1
+
+  cd ../..
+
+  # Build gcc-gthread QEMU
+
+  cd bin/gcc-gthread${nopool}
+  ../../configure $CONFIGOPTS \
+    --with-coroutine=gthread    \
+    --extra-cflags="$GCCOPTS"
+  make -j8 > make.log 2>&1
+  # XXX make check > make.check 2>&1
 
   cd ../..
 
@@ -88,8 +113,9 @@ for nopool in "" "-nopool"; do
   ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --cc="$CILBIN" \
-    --extra-cflags="$GCCOPTS $CILOPTS $COROOPTS" 
-  make -j8 > make.log 2>&1 
+    --extra-cflags="$GCCOPTS $CILOPTS $COROOPTS"
+  make -j8 > make.log 2>&1
+  make check > make.check 2>&1
 
   cd ../..
 
@@ -100,7 +126,8 @@ for nopool in "" "-nopool"; do
     --with-coroutine=ucontext    \
     --cc="$CPCBIN" \
     --extra-cflags="--dontcpc $GCCOPTS $CILOPTS"
-  make -j8 > make.log 2>&1 
+  make -j8 > make.log 2>&1
+  make check > make.check 2>&1
 
   cd ../..
 
@@ -111,7 +138,8 @@ for nopool in "" "-nopool"; do
     --with-coroutine=cpc    \
     --cc="$CPCBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS"
-  make -j8 > make.log 2>&1 
+  make -j8 > make.log 2>&1
+  make check > make.check 2>&1
 
   cd ../..
 
