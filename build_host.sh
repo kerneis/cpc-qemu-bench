@@ -64,12 +64,11 @@ git pull
 for nopool in "" "-nopool"; do
 
   if [ "$nopool" = "-nopool" ]; then
-    GCCOPTS="$GCCOPTS -DNO_COROUTINE_POOL"
+    CONFIGOPTS=$CONFIGOPTS --disable-coroutine-pool
   fi
 
   mkdir -p bin/gcc-ucontext${nopool}
   mkdir -p bin/gcc-sigaltstack${nopool}
-  mkdir -p bin/gcc-gthread${nopool}
   mkdir -p bin/cil-ucontext${nopool}
   mkdir -p bin/cpc-ucontext${nopool}
   mkdir -p bin/cpc-cpc${nopool}
@@ -100,6 +99,8 @@ for nopool in "" "-nopool"; do
 
   # gthread does not work with a pool
   if [ "$nopool" = "-nopool" ]; then
+
+    mkdir -p bin/gcc-gthread${nopool}
 
     cd bin/gcc-gthread${nopool}
     ../../configure $CONFIGOPTS \
