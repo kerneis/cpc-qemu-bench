@@ -1,0 +1,20 @@
+[1] "Mean time (over 10 runs)"
+                 backend     time
+2         cpc-cpc-nopool  10.5809
+1                cpc-cpc  10.6796
+7           gcc-ucontext  10.8075
+5        gcc-sigaltstack  10.9662
+3           cpc-ucontext  11.2798
+4    cpc-ucontext-nopool  47.2773
+8    gcc-ucontext-nopool  47.3394
+6 gcc-sigaltstack-nopool 183.2571
+[1] "Median time (over 10 runs)"
+                 backend     time
+2         cpc-cpc-nopool  10.5885
+1                cpc-cpc  10.6565
+7           gcc-ucontext  10.8060
+5        gcc-sigaltstack  10.9220
+3           cpc-ucontext  11.1375
+8    gcc-ucontext-nopool  47.1320
+4    cpc-ucontext-nopool  47.1840
+6 gcc-sigaltstack-nopool 181.3235
