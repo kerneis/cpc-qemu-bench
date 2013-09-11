@@ -65,7 +65,7 @@ git pull
 for nopool in "" "-nopool"; do
 
   if [ "$nopool" = "-nopool" ]; then
-    CONFIGOPTS=$CONFIGOPTS --disable-coroutine-pool
+    CONFIGOPTS="$CONFIGOPTS --disable-coroutine-pool"
   fi
 
   mkdir -p bin/gcc-ucontext${nopool}
