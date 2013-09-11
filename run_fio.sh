@@ -22,7 +22,7 @@ echo ==========================================
 
 uname -a >> $log
 echo -n "looking for kvm: " >> $log
-(lsmod|grep kvm) || echo "not found" >> $log
+(lsmod|grep kvm >> $log) || echo "not found" >> $log
 file testbedhdd.img >> $log
 echo backend: $backend >> $log
 echo $cmd >> $log
