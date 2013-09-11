@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
 # Use DONTCLEAN=1 ./build_host.sh to avoid rebuilding everything
+# Use MAKEOPTS=-j8 for a faster (but less reliable) build
 
 ROOTDIR="$(pwd)"
 
@@ -79,7 +80,7 @@ for nopool in "" "-nopool"; do
   ../../configure $CONFIGOPTS \
     --with-coroutine=ucontext    \
     --extra-cflags="$GCCOPTS"
-  make -j8 > make.log 2>&1
+  make $MAKEOPTS > make.log 2>&1
   make check > make.check 2>&1
 
   cd ../..
@@ -90,7 +91,7 @@ for nopool in "" "-nopool"; do
   ../../configure $CONFIGOPTS \
     --with-coroutine=sigaltstack    \
     --extra-cflags="$GCCOPTS"
-  make -j8 > make.log 2>&1
+  make $MAKEOPTS > make.log 2>&1
   make check > make.check 2>&1
 
   cd ../..
@@ -106,7 +107,7 @@ for nopool in "" "-nopool"; do
     ../../configure $CONFIGOPTS \
       --with-coroutine=gthread    \
       --extra-cflags="$GCCOPTS"
-    make -j8 > make.log 2>&1
+    make $MAKEOPTS > make.log 2>&1
     make check > make.check 2>&1
 
     cd ../..
@@ -120,7 +121,7 @@ for nopool in "" "-nopool"; do
     --with-coroutine=ucontext    \
     --cc="$CILBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS $COROOPTS"
-  make -j8 > make.log 2>&1
+  make $MAKEOPTS > make.log 2>&1
   make check > make.check 2>&1
 
   cd ../..
@@ -132,7 +133,7 @@ for nopool in "" "-nopool"; do
     --with-coroutine=ucontext    \
     --cc="$CPCBIN" \
     --extra-cflags="--dontcpc $GCCOPTS $CILOPTS"
-  make -j8 > make.log 2>&1
+  make $MAKEOPTS > make.log 2>&1
   make check > make.check 2>&1
 
   cd ../..
@@ -144,7 +145,7 @@ for nopool in "" "-nopool"; do
     --with-coroutine=cpc    \
     --cc="$CPCBIN" \
     --extra-cflags="$GCCOPTS $CILOPTS"
-  make -j8 > make.log 2>&1
+  make $MAKEOPTS > make.log 2>&1
   make check > make.check 2>&1
 
   cd ../..
