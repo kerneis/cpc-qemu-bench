@@ -64,7 +64,7 @@ git pull
 for nopool in "" "-nopool"; do
 
   if [ "$nopool" = "-nopool" ]; then
-    GCCOPTS=$GCCOPTS -DNO_COROUTINE_POOL
+    GCCOPTS="$GCCOPTS -DNO_COROUTINE_POOL"
   fi
 
   mkdir -p bin/gcc-ucontext${nopool}
