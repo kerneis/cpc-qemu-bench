@@ -44,7 +44,7 @@ fi
 echo Guest status: $result
 
 for rw in read write randread randwrite; do
-  for job in 100 500 1000; do
+  for job in 100 500; do
     echo TESTING: rw=$rw numjobs=$job backend=$backend
     ./run_fio.sh ${rw} ${job} ${backend}
   done
