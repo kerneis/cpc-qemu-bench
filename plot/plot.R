@@ -16,7 +16,6 @@ pool <- grep("nopool", files, invert=TRUE, value=TRUE)
 nopool <- grep("nopool", files, value=TRUE)
 
 read_data <- function(files) {
-  print(files)
   datas <- lapply(files, read.csv)
   dat <- Reduce(rbind, datas)
   return(dat)
@@ -24,7 +23,7 @@ read_data <- function(files) {
 
 poold <- read_data(pool)
 nopoold <- read_data(nopool)
-fulld <- read_data(files)
+#fulld <- read_data(files)
 
 draw_graph <- function(rw, yvar, dat, nopool="") {
   png(filename=paste(rw, "-", yvar, nopool, ".png", sep=""), height=600, width=800)
@@ -32,12 +31,10 @@ draw_graph <- function(rw, yvar, dat, nopool="") {
   aggr <- aggregate(eval(substitute(
                     var ~ backend + numjobs , list(var = as.name(yvar)))),
                     FUN = "median", data = dat) 
-  print(names(aggr))
   g <- ggplot(aggr, aes_string(x="numjobs", y=yvar, color="backend", shape="backend")) +
     geom_point() +
-    geom_line() +
-    #scale_y_log10(limits=c(1,max(aggr[[yvar]])))
-    scale_y_log10()
+    geom_line()
+    # + scale_y_log10(limits=c(1,max(aggr[[yvar]])))
 
   print(g)
 
@@ -45,7 +42,7 @@ draw_graph <- function(rw, yvar, dat, nopool="") {
 }
 
 for (yvar in yvars) {
-  draw_graph(rw, yvar, fulld)
-  #draw_graph(rw, yvar, poold)
-  #draw_graph(rw, yvar, nopoold, "-nopool")
+  #draw_graph(rw, yvar, fulld)
+  draw_graph(rw, yvar, poold)
+  draw_graph(rw, yvar, nopoold, "-nopool")
 }

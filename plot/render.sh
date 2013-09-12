@@ -2,6 +2,6 @@
 
 for rw in read write; do
   for dir in "$rw" "rand${rw}"; do
-      ./plot.R --args ${dir} ${rw}.bw switches
+      ./plot.R --args ${dir} ${rw}.io switches
   done
 done
