@@ -9,8 +9,8 @@ CONFIGOPTS="--disable-werror --target-list=x86_64-softmmu"
 CILOPTS="--save-temps --noMakeStaticGlobal --useLogicalOperators \
   --useCaseRange"
 # XXX -Dcoroutine_fn is useless right now, but we plan to add #ifndef
-# XXX in fact no, it's necessary for cpc
-GCCOPTS="-U__SSE2__ -w -Dcoroutine_fn='__attribute__((cps))'"
+# XXX in fact no, it's necessary for cpc-fixes
+GCCOPTS="-U__SSE2__ -w -Dcoroutine_fn=\"__attribute__((cps))\""
 COROOPTS="--load=$ROOTDIR/corocheck/_build/corocheck.cma \
   --doCoroCheck --coopAttr=cps --blockAttr=nocps"
 

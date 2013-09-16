@@ -16,3 +16,7 @@ for dir in $(ls qemu/bin | grep -v gthread | grep -v cil-ucontext); do
     (time qemu/bin/${dir}/tests/test-coroutine -p /perf -m perf -s 1 -q) 2>> $logfile
   done
 done
+echo Doing a single run for gthread - expected time 1h05...
+dir=gcc-gthread-nopool
+printf "${dir}," >> $logfile
+(time qemu/bin/${dir}/tests/test-coroutine -p /perf -m perf -s 1 -q) 2>> $logfile
