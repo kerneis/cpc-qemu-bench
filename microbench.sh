@@ -1,22 +1,20 @@
 #!/bin/bash -e
 
-export TIMEFORMAT='%3R'
-
 logfile=data/microbench.csv
 
 rm -f $logfile
 
-echo backend,time >> $logfile
+echo backend,test,iterations,time >> $logfile
 
-for dir in $(ls qemu/bin | grep -v gthread | grep -v cil-ucontext); do
+# test gthread after every other because it is much slower
+for dir in $(ls qemu/bin | grep -v gthread | grep -v cil-ucontext) gcc-gthread-nopool; do
   echo ========== $dir ===========
   make -C "qemu/bin/${dir}" tests/test-coroutine
-  for i in `seq 1 10`; do
-    printf "${dir}," >> $logfile
-    (time qemu/bin/${dir}/tests/test-coroutine -p /perf -m perf -s 1 -q) 2>> $logfile
+  for bench in lifecycle yield nesting; do
+    for i in `seq 1 10`; do
+      printf "${dir},${bench}," >> $logfile
+      qemu/bin/${dir}/tests/test-coroutine -m perf -p /perf/${bench} --verbose |\
+        grep iterations|sed 's/.* \([^ ]*\) iterations.*: \([^ ]*\) s.*/\1,\2/' >> $logfile
+    done
   done
 done
-echo Doing a single run for gthread - expected time 1h05...
-dir=gcc-gthread-nopool
-printf "${dir}," >> $logfile
-(time qemu/bin/${dir}/tests/test-coroutine -p /perf -m perf -s 1 -q) 2>> $logfile
