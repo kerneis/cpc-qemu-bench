@@ -1,22 +1,22 @@
 [1] "Mean time (over 10 runs)"
                  backend      time
-2         cpc-cpc-nopool   10.5809
-1                cpc-cpc   10.6796
-8           gcc-ucontext   10.8075
-6        gcc-sigaltstack   10.9662
-3           cpc-ucontext   11.2798
-4    cpc-ucontext-nopool   47.2773
-9    gcc-ucontext-nopool   47.3394
-7 gcc-sigaltstack-nopool  183.2571
-5     gcc-gthread-nopool 3883.4000
+2         cpc-cpc-nopool    7.7729
+1                cpc-cpc    8.1212
+8           gcc-ucontext   10.8369
+6        gcc-sigaltstack   10.9609
+3           cpc-ucontext   11.1624
+4    cpc-ucontext-nopool   47.2295
+9    gcc-ucontext-nopool   47.4300
+7 gcc-sigaltstack-nopool  182.2582
+5     gcc-gthread-nopool 1185.5768
 [1] "Median time (over 10 runs)"
                  backend      time
-2         cpc-cpc-nopool   10.5885
-1                cpc-cpc   10.6565
-8           gcc-ucontext   10.8060
-6        gcc-sigaltstack   10.9220
-3           cpc-ucontext   11.1375
-9    gcc-ucontext-nopool   47.1320
-4    cpc-ucontext-nopool   47.1840
-7 gcc-sigaltstack-nopool  181.3235
-5     gcc-gthread-nopool 3905.5000
+2         cpc-cpc-nopool    7.7650
+1                cpc-cpc    8.1040
+8           gcc-ucontext   10.8055
+6        gcc-sigaltstack   10.9510
+3           cpc-ucontext   11.1430
+4    cpc-ucontext-nopool   47.2150
+9    gcc-ucontext-nopool   47.2620
+7 gcc-sigaltstack-nopool  182.1275
+5     gcc-gthread-nopool 1232.4590
