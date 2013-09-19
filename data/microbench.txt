@@ -1,22 +1,58 @@
 [1] "Mean time (over 10 runs)"
-                 backend      time
-2         cpc-cpc-nopool    7.7729
-1                cpc-cpc    8.1212
-8           gcc-ucontext   10.8369
-6        gcc-sigaltstack   10.9609
-3           cpc-ucontext   11.1624
-4    cpc-ucontext-nopool   47.2295
-9    gcc-ucontext-nopool   47.4300
-7 gcc-sigaltstack-nopool  182.2582
-5     gcc-gthread-nopool 1185.5768
+           backend  pool      test         time
+2     cpc-ucontext       lifecycle        108.0
+4     gcc-ucontext       lifecycle        108.0
+3  gcc-sigaltstack       lifecycle        108.8
+1          cpc-cpc       lifecycle        208.3
+5          cpc-cpc FALSE lifecycle         75.9
+9     gcc-ucontext FALSE lifecycle        464.7
+6     cpc-ucontext FALSE lifecycle        466.0
+8  gcc-sigaltstack FALSE lifecycle       1796.0
+7      gcc-gthread FALSE lifecycle      10802.4
+10         cpc-cpc         nesting     129532.3
+13    gcc-ucontext         nesting     682956.2
+11    cpc-ucontext         nesting     688564.2
+12 gcc-sigaltstack         nesting    1988064.1
+14         cpc-cpc FALSE   nesting      96702.4
+15    cpc-ucontext FALSE   nesting    3894649.8
+18    gcc-ucontext FALSE   nesting    3899708.2
+17 gcc-sigaltstack FALSE   nesting    5843054.0
+16     gcc-gthread FALSE   nesting 2826905786.4
+19         cpc-cpc           yield         24.7
+20    cpc-ucontext           yield         83.0
+22    gcc-ucontext           yield         84.9
+21 gcc-sigaltstack           yield         87.3
+23         cpc-cpc FALSE     yield         19.0
+27    gcc-ucontext FALSE     yield         83.8
+24    cpc-ucontext FALSE     yield         84.0
+26 gcc-sigaltstack FALSE     yield         85.0
+25     gcc-gthread FALSE     yield       5703.3
 [1] "Median time (over 10 runs)"
-                 backend      time
-2         cpc-cpc-nopool    7.7650
-1                cpc-cpc    8.1040
-8           gcc-ucontext   10.8055
-6        gcc-sigaltstack   10.9510
-3           cpc-ucontext   11.1430
-4    cpc-ucontext-nopool   47.2150
-9    gcc-ucontext-nopool   47.2620
-7 gcc-sigaltstack-nopool  182.1275
-5     gcc-gthread-nopool 1232.4590
+           backend  pool      test         time
+2     cpc-ucontext       lifecycle        108.0
+4     gcc-ucontext       lifecycle        108.0
+3  gcc-sigaltstack       lifecycle        109.0
+1          cpc-cpc       lifecycle        208.0
+5          cpc-cpc FALSE lifecycle         76.0
+9     gcc-ucontext FALSE lifecycle        464.5
+6     cpc-ucontext FALSE lifecycle        465.0
+8  gcc-sigaltstack FALSE lifecycle       1800.0
+7      gcc-gthread FALSE lifecycle      10774.0
+10         cpc-cpc         nesting     129497.0
+13    gcc-ucontext         nesting     682873.0
+11    cpc-ucontext         nesting     688315.0
+12 gcc-sigaltstack         nesting    1971617.5
+14         cpc-cpc FALSE   nesting      96709.0
+15    cpc-ucontext FALSE   nesting    3886463.0
+18    gcc-ucontext FALSE   nesting    3894557.5
+17 gcc-sigaltstack FALSE   nesting    5816369.0
+16     gcc-gthread FALSE   nesting 2829677868.0
+19         cpc-cpc           yield         18.0
+20    cpc-ucontext           yield         83.0
+22    gcc-ucontext           yield         84.0
+21 gcc-sigaltstack           yield         87.0
+23         cpc-cpc FALSE     yield         19.0
+27    gcc-ucontext FALSE     yield         84.0
+24    cpc-ucontext FALSE     yield         84.0
+26 gcc-sigaltstack FALSE     yield         85.0
+25     gcc-gthread FALSE     yield       5690.0
