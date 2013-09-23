@@ -1,0 +1,31 @@
+digraph G {
+  "qemu_co_queue_do_restart" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_init" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_wait" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_wait_insert_head" [shape=ellipse, color="#000000",
+                                    style=solid];
+  "qemu_co_queue_next" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_restart_all" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_empty" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_mutex_init" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_mutex_lock" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_mutex_unlock" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_rwlock_init" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_rwlock_rdlock" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_rwlock_wrlock" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_rwlock_unlock" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_run_restart" [shape=ellipse, color="#000000", style=solid];
+  
+  
+  "qemu_co_queue_next" -> "qemu_co_queue_do_restart";
+  "qemu_co_queue_restart_all" -> "qemu_co_queue_do_restart";
+  "qemu_co_mutex_init" -> "qemu_co_queue_init";
+  "qemu_co_mutex_lock" -> "qemu_co_queue_wait";
+  "qemu_co_mutex_unlock" -> "qemu_co_queue_next";
+  "qemu_co_rwlock_init" -> "qemu_co_queue_init";
+  "qemu_co_rwlock_rdlock" -> "qemu_co_queue_wait";
+  "qemu_co_rwlock_wrlock" -> "qemu_co_queue_wait";
+  "qemu_co_rwlock_unlock" -> "qemu_co_queue_next";
+  "qemu_co_rwlock_unlock" -> "qemu_co_queue_restart_all";
+  
+  }
