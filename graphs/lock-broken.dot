@@ -1,30 +1,40 @@
 digraph G {
-  "qemu_co_queue_do_restart" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_queue_do_restart" [shape=box, color="#FF0000", style=dashed];
+  "cps qemu_coroutine_yield" [shape=box, color="#000000", style=solid];
+  "cps qemu_coroutine_self" [shape=box, color="#000000", style=solid];
   "qemu_co_queue_init" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_queue_wait" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_queue_wait_insert_head" [shape=ellipse, color="#000000",
-                                    style=solid];
-  "qemu_co_queue_next" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_queue_restart_all" [shape=ellipse, color="#000000", style=solid];
+  "cps qemu_co_queue_wait" [shape=box, color="#000000", style=solid];
+  "cps qemu_co_queue_wait_insert_head" [shape=box, color="#000000",
+                                        style=solid];
+  "qemu_co_queue_next" [shape=box, color="#FF0000", style=dashed];
+  "qemu_co_queue_restart_all" [shape=box, color="#FF0000", style=dashed];
   "qemu_co_queue_empty" [shape=ellipse, color="#000000", style=solid];
   "qemu_co_mutex_init" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_mutex_lock" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_mutex_unlock" [shape=ellipse, color="#000000", style=solid];
+  "cps qemu_co_mutex_lock" [shape=box, color="#000000", style=solid];
+  "cps qemu_co_mutex_unlock" [shape=box, color="#000000", style=solid];
   "qemu_co_rwlock_init" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_rwlock_rdlock" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_rwlock_wrlock" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_rwlock_unlock" [shape=ellipse, color="#000000", style=solid];
-  "qemu_co_queue_run_restart" [shape=ellipse, color="#000000", style=solid];
+  "qemu_co_rwlock_rdlock" [shape=box, color="#FF0000", style=dashed];
+  "qemu_co_rwlock_wrlock" [shape=box, color="#FF0000", style=dashed];
+  "qemu_co_rwlock_unlock" [shape=box, color="#FF0000", style=dashed];
+  "cps qemu_co_queue_run_restart" [shape=ellipse, color="#FF0000",
+                                   style=dashed];
   
   
+  "qemu_co_queue_do_restart" -> "cps qemu_coroutine_self";
+  "cps qemu_co_queue_wait" -> "cps qemu_coroutine_yield";
+  "cps qemu_co_queue_wait" -> "cps qemu_coroutine_self";
+  "cps qemu_co_queue_wait_insert_head" -> "cps qemu_coroutine_yield";
+  "cps qemu_co_queue_wait_insert_head" -> "cps qemu_coroutine_self";
   "qemu_co_queue_next" -> "qemu_co_queue_do_restart";
   "qemu_co_queue_restart_all" -> "qemu_co_queue_do_restart";
   "qemu_co_mutex_init" -> "qemu_co_queue_init";
-  "qemu_co_mutex_lock" -> "qemu_co_queue_wait";
-  "qemu_co_mutex_unlock" -> "qemu_co_queue_next";
+  "cps qemu_co_mutex_lock" -> "cps qemu_coroutine_self";
+  "cps qemu_co_mutex_lock" -> "cps qemu_co_queue_wait";
+  "cps qemu_co_mutex_unlock" -> "cps qemu_coroutine_self";
+  "cps qemu_co_mutex_unlock" -> "qemu_co_queue_next";
   "qemu_co_rwlock_init" -> "qemu_co_queue_init";
-  "qemu_co_rwlock_rdlock" -> "qemu_co_queue_wait";
-  "qemu_co_rwlock_wrlock" -> "qemu_co_queue_wait";
+  "qemu_co_rwlock_rdlock" -> "cps qemu_co_queue_wait";
+  "qemu_co_rwlock_wrlock" -> "cps qemu_co_queue_wait";
   "qemu_co_rwlock_unlock" -> "qemu_co_queue_next";
   "qemu_co_rwlock_unlock" -> "qemu_co_queue_restart_all";
   
